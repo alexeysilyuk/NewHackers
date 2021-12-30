@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  mongodb:
+    image : mongo
+    container_name: mongodb_cont
+    hostname: ${MONGODB_HOSTNAME}
+     # volumes:
+    # - ./volumes/mongodb/database:/data/db
+    ports:
+    - ${MONGODB_PORT}:${MONGODB_PORT}
+    restart: always
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - ${MONGODB_EXPRESS_PORT}:${MONGODB_EXPRESS_PORT}
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://${MONGODB_HOSTNAME}:${MONGODB_CONTAINER_PORT}/
+  app:
+    container_name: App
+    build: .
+    restart: always
+    env_file: .env
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    depends_on:
+      - mongodb

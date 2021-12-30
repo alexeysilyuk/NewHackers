@@ -1,0 +1,6 @@
+fastapi==0.70.0
+redis==4.0.1
+uvicorn==0.15.0
+python-dotenv==0.19.2
+pymongo==3.12.3
+motor==2.5.1
